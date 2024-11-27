@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
-import '../models/movie.dart'; // Adicionando o modelo Movie caso precise
-import 'package:my_new_project/screens/movie_detail_screen.dart';  // Importe a tela de detalhes
+import '../models/movie.dart';
+import 'package:my_new_project/screens/movie_detail_screen.dart';
 
 class MyListScreen extends StatelessWidget {
   @override
@@ -11,20 +11,20 @@ class MyListScreen extends StatelessWidget {
     final myList = movieProvider.myList;
 
     return Scaffold(
-      backgroundColor: Colors.black, // Fundo preto para tema escuro
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(
           'Minha Lista', 
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white), // Título branco
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white), 
         ),
-        backgroundColor: Colors.black, // Fundo preto para a AppBar
+        backgroundColor: Colors.black,
         centerTitle: true,
       ),
       body: myList.isEmpty
           ? Center(
               child: Text(
                 'Nenhum filme na sua lista.',
-                style: TextStyle(color: Colors.white, fontSize: 18), // Texto branco
+                style: TextStyle(color: Colors.white, fontSize: 18), 
               ),
             )
           : SingleChildScrollView(
@@ -32,7 +32,7 @@ class MyListScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 200,  // Ajuste para a altura do ListView horizontal
+                    height: 200,  
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: myList.length,
@@ -67,7 +67,7 @@ class MyListScreen extends StatelessWidget {
                                 SizedBox(height: 5),
                                 Text(
                                   movie.title ?? 'Sem título',
-                                  style: TextStyle(color: Colors.white, fontSize: 12), // Texto branco
+                                  style: TextStyle(color: Colors.white, fontSize: 12), 
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],

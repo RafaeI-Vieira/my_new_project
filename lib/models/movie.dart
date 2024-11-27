@@ -35,7 +35,6 @@ class Movie {
     this.globoplayExpirationDate,
   });
 
-  /// Construtor de fábrica para criar um objeto `Movie` a partir de um JSON.
   factory Movie.fromJson(Map<String, dynamic> json) {
     final List<int> genreIds = List<int>.from(json['genre_ids'] ?? []);
     final bool isSeries = json['media_type'] == 'tv' || genreIds.contains(10765);

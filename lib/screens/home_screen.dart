@@ -3,27 +3,25 @@ import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
 import '../models/movie.dart';
 import 'package:my_new_project/screens/movie_detail_screen.dart'; 
-import 'package:my_new_project/screens/my_list_screen.dart';  // Importe a tela MyListScreen
-
+import 'package:my_new_project/screens/my_list_screen.dart'; 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0; // Variável para controlar o índice do BottomNavigationBar
+  int _selectedIndex = 0; 
 
-  // Função para trocar a tela com base no índice selecionado
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
-    // Navegação para "Minha Lista" ou para "Início" com base no índice selecionado
+    
     if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (ctx) => MyListScreen()), // Redireciona para "Minha Lista"
+        MaterialPageRoute(builder: (ctx) => MyListScreen()), 
       );
     }
   }
@@ -31,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Altera o fundo da Home para preto
+      backgroundColor: Colors.black, 
       appBar: AppBar(
         title: Text('globoplay', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: Colors.black,
@@ -67,21 +65,21 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black, // Cor de fundo do BottomNavigationBar
-        selectedItemColor: Colors.white, // Cor do item selecionado
-        unselectedItemColor: Colors.grey, // Cor do item não selecionado
-        currentIndex: _selectedIndex, // Atualiza o índice selecionado
-        onTap: _onItemTapped, // Chama a função para tratar o clique
+        backgroundColor: Colors.black, 
+        selectedItemColor: Colors.white, 
+        unselectedItemColor: Colors.grey, 
+        currentIndex: _selectedIndex, 
+        onTap: _onItemTapped, 
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white), // Ícone em branco
+            icon: Icon(Icons.home, color: Colors.white), 
             label: 'Início',
-            backgroundColor: Colors.black, // Cor de fundo para a opção
+            backgroundColor: Colors.black, 
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star, color: Colors.white), // Ícone em branco
+            icon: Icon(Icons.star, color: Colors.white), 
             label: 'Minha lista',
-            backgroundColor: Colors.black, // Cor de fundo para a opção
+            backgroundColor: Colors.black, 
           ),
         ],
       ),
@@ -107,7 +105,7 @@ class CategorySection extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.white, // Texto branco para os títulos das categorias
+                color: Colors.white, 
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -128,7 +126,7 @@ class CategorySection extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (ctx) => MovieDetailScreen(
                           id: item.id.toString(), // ID do item
-                          type: title == 'Novelas' || title == 'Séries' ? 'tv' : 'movie', // Define o tipo com base na categoria
+                          type: title == 'Novelas' || title == 'Séries' ? 'tv' : 'movie', 
                         ),
                       ),
                     );
@@ -149,7 +147,7 @@ class CategorySection extends StatelessWidget {
                         SizedBox(height: 5),
                         Text(
                           item.title ?? 'Sem título',
-                          style: TextStyle(color: Colors.white, fontSize: 12), // Texto branco
+                          style: TextStyle(color: Colors.white, fontSize: 12), 
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],

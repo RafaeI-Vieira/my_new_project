@@ -15,30 +15,28 @@ class MovieProvider with ChangeNotifier {
   List<Movie> get novelas => _novelas;
   List<Movie> get favorites => _favorites;
   List<Movie> get myList => _myList;
-  Movie? _selectedMovie;  // Variável para armazenar o filme selecionado
-    Movie? get selectedMovie => _selectedMovie; // Getter para o filme selecionado
+  Movie? _selectedMovie; 
+  Movie? get selectedMovie => _selectedMovie; 
 
   Future<void> fetchMovies() async {
-  final baseUrl = dotenv.env['BASE_URL']!;
-  final apiKey = dotenv.env['API_KEY']!;
-  final url =
-      '$baseUrl/movie/now_playing?language=pt-BR&page=1&api_key=$apiKey';
+    final baseUrl = dotenv.env['BASE_URL']!;
+    final apiKey = dotenv.env['API_KEY']!;
+    final url = '$baseUrl/movie/now_playing?language=pt-BR&page=1&api_key=$apiKey';
 
-  try {
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body)['results'];
-      _movies = data.map<Movie>((json) => Movie.fromJson(json)).toList();
-      notifyListeners();
-    } else {
-      debugPrint('Erro HTTP em filmes: ${response.statusCode} - ${response.reasonPhrase}');
-      throw Exception('Erro ao buscar filmes: ${response.statusCode}');
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body)['results'];
+        _movies = data.map<Movie>((json) => Movie.fromJson(json)).toList();
+        notifyListeners();
+      } else {
+        debugPrint('Erro HTTP em filmes: ${response.statusCode} - ${response.reasonPhrase}');
+        throw Exception('Erro ao buscar filmes: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('Erro ao buscar filmes: $error');
     }
-  } catch (error) {
-    throw Exception('Erro ao buscar filmes: $error');
   }
-}
-
 
   Future<void> fetchSeries() async {
     final baseUrl = dotenv.env['BASE_URL']!;
@@ -60,28 +58,27 @@ class MovieProvider with ChangeNotifier {
     }
   }
 
-
   Future<void> fetchNovelas() async {
-  final baseUrl = dotenv.env['BASE_URL']!;
-  final apiKey = dotenv.env['API_KEY']!;
-  final url =
-      '$baseUrl/discover/tv?with_genres=10766&include_adult=false&language=en-US&page=1&sort_by=popularity.desc&api_key=$apiKey';
+    final baseUrl = dotenv.env['BASE_URL']!;
+    final apiKey = dotenv.env['API_KEY']!;
+    final url = '$baseUrl/discover/tv?with_genres=10766&include_adult=false&language=en-US&page=1&sort_by=popularity.desc&api_key=$apiKey';
 
-  try {
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body)['results'];
-      _novelas = data.map<Movie>((json) => Movie.fromJson(json)).toList();
-      notifyListeners();
-    } else {
-      debugPrint('Erro HTTP em novelas: ${response.statusCode} - ${response.reasonPhrase}');
-      throw Exception('Erro ao buscar novelas: ${response.statusCode}');
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body)['results'];
+        _novelas = data.map<Movie>((json) => Movie.fromJson(json)).toList();
+        notifyListeners();
+      } else {
+        debugPrint('Erro HTTP em novelas: ${response.statusCode} - ${response.reasonPhrase}');
+        throw Exception('Erro ao buscar novelas: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('Erro ao buscar novelas: $error');
     }
-  } catch (error) {
-    throw Exception('Erro ao buscar novelas: $error');
   }
-}
-Future<void> fetchMovieDetails(String movieId) async {
+
+  Future<void> fetchMovieDetails(String movieId) async {
     final baseUrl = dotenv.env['BASE_URL']!;
     final apiKey = dotenv.env['API_KEY']!;
     final url = '$baseUrl/movie/$movieId?api_key=$apiKey&language=pt-BR';
@@ -108,7 +105,7 @@ Future<void> fetchMovieDetails(String movieId) async {
     }
 
     final genreMapping = {
-      'Cinema': [28, 12, 16] // Action, Adventure, Animation
+      'Cinema': [28, 12, 16]
     };
 
     final genreIds = genreMapping[category];
@@ -134,9 +131,7 @@ Future<void> fetchMovieDetails(String movieId) async {
     }
     notifyListeners();
   }
-    // Buscar detalhes do filme
-  
-  // Buscar detalhes de séries
+
   Future<void> fetchSeriesDetails(String seriesId) async {
     final baseUrl = dotenv.env['BASE_URL']!;
     final apiKey = dotenv.env['API_KEY']!;
@@ -156,7 +151,6 @@ Future<void> fetchMovieDetails(String movieId) async {
     }
   }
 
-  // Métodos de controle para "Minha Lista"
   void addToMyList(Movie movie) {
     if (!_myList.contains(movie)) {
       _myList.add(movie);
@@ -170,6 +164,4 @@ Future<void> fetchMovieDetails(String movieId) async {
       notifyListeners();
     }
   }
-
 }
-

@@ -52,7 +52,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> with SingleTicker
     });
     if (_isInMyList) {
       Provider.of<MovieProvider>(context, listen: false).addToMyList(movie);
-      Navigator.pushNamed(context, '/my_list_screen'); // Redirecionar para a tela "MyListScreen"
+      Navigator.pushNamed(context, '/my_list_screen');
     } else {
       Provider.of<MovieProvider>(context, listen: false).removeFromMyList(movie);
     }
@@ -90,8 +90,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> with SingleTicker
               ? Center(child: Text(_errorMessage!, style: TextStyle(color: Colors.white)))
               : selectedItem == null
                   ? const Center(child: Text('Item não encontrado.', style: TextStyle(color: Colors.white)))
-                  : Container( // Adicionar Container para fundo preto
-                      color: Colors.black, // Fundo preto
+                  : Container(
+                      color: Colors.black,
                       child: Column(
                         children: [
                           MovieImage(imageUrl: selectedItem.posterPath),
@@ -100,34 +100,34 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> with SingleTicker
                             type: widget.type,
                             overview: selectedItem.overview ?? 'Sem descrição disponível.',
                           ),
-                        Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      ElevatedButton.icon(
-        onPressed: () {}, // Lógica para assistir
-        icon: Icon(Icons.play_arrow, color: Colors.white), // Ícone de play
-        label: const Text(
-          'Assista',
-          style: TextStyle(color: Colors.white),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black, // Cor de fundo do botão
-        ),
-      ),
-      ElevatedButton.icon(
-        onPressed: () => _toggleMyList(selectedItem),
-        icon: Icon(_isInMyList ? Icons.check : Icons.star_border, color: Colors.white),
-        label: Text(
-          _isInMyList ? 'Adicionado' : 'Minha lista',
-          style: TextStyle(color: Colors.white),
-        ),
-        style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 0, 0)),
-      ),
-    ],
-  ),
-),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.play_arrow, color: Colors.white),
+                                  label: const Text(
+                                    'Assista',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black,
+                                  ),
+                                ),
+                                ElevatedButton.icon(
+                                  onPressed: () => _toggleMyList(selectedItem),
+                                  icon: Icon(_isInMyList ? Icons.check : Icons.star_border, color: Colors.white),
+                                  label: Text(
+                                    _isInMyList ? 'Adicionado' : 'Minha lista',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 0, 0)),
+                                ),
+                              ],
+                            ),
+                          ),
                           TabBar(
                             controller: _tabController,
                             labelColor: Colors.white,
@@ -180,7 +180,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> with SingleTicker
   Widget _buildDetails(Movie selectedItem) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      color: Colors.black, // Fundo preto para o componente de detalhes
+      color: Colors.black,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,60 +190,43 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> with SingleTicker
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             const SizedBox(height: 10),
-
-            // Título Original
             Text(
               'Título Original: ${selectedItem.originalTitle ?? 'Não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 5),
-
-            // Gênero(s)
             Text(
               'Gênero: ${selectedItem.genres?.join(', ') ?? 'Não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 5),
-
-            // Episódios (apenas se for uma série)
             selectedItem.isSeries
                 ? Text(
                     'Episódios: ${selectedItem.numberOfEpisodes ?? 'Informação não disponível'}',
                     style: const TextStyle(fontSize: 16, color: Colors.white),
                   )
                 : Container(),
-
             const SizedBox(height: 5),
-
-            // Ano de Produção
             Text(
               'Ano de Produção: ${selectedItem.productionYear ?? 'Não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 5),
-
-            // País
             Text(
               'País: ${selectedItem.originCountry?.join(', ') ?? 'Não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 5),
-
-            // Direção
             Text(
               'Direção: ${selectedItem.director ?? 'Não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 5),
-
-            // Elenco
             Text(
               'Elenco: ${selectedItem.cast?.join(', ') ?? 'Não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
             const SizedBox(height: 5),
-
-            // Disponibilidade no Globoplay
             Text(
               'Disponível até: ${selectedItem.globoplayExpirationDate ?? 'Informação não disponível'}',
               style: const TextStyle(fontSize: 16, color: Colors.white),
@@ -275,7 +258,6 @@ class MovieImage extends StatelessWidget {
   }
 }
 
-
 class MovieInfo extends StatelessWidget {
   final String title;
   final String type;
@@ -287,46 +269,47 @@ class MovieInfo extends StatelessWidget {
     required this.overview,
     Key? key,
   }) : super(key: key);
-@override
-Widget build(BuildContext context) {
-  return Container(
-    color: Colors.black, // Use 'color' em vez de 'backgroundColor'
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          type == 'movie'
-              ? 'Filme'
-              : type == 'series'
-                  ? 'Série'
-                  : 'Novela',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.white54,
+          const SizedBox(height: 5),
+          Text(
+            type == 'movie'
+                ? 'Filme'
+                : type == 'series'
+                    ? 'Série'
+                    : 'Novela',
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.white54,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          overview,
-          style: const TextStyle(
-            fontSize: 14,
-            height: 1.5,
-            color: Colors.white70,
+          const SizedBox(height: 10),
+          Text(
+            overview,
+            style: const TextStyle(
+              fontSize: 14,
+              height: 1.5,
+              color: Colors.white70,
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }
