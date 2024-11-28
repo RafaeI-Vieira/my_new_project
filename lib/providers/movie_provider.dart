@@ -103,7 +103,7 @@ class MovieProvider with ChangeNotifier {
     } else if (category == 'Séries') {
       return _series;
     }
-
+   // cinema = 28,12,16 isso pq 28= action 12 = aventura 16 = animação
     final genreMapping = {
       'Cinema': [28, 12, 16]
     };
